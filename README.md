@@ -1,1 +1,1 @@
-# atlantis-demo
+# terraform-sample
