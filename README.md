@@ -19,3 +19,4 @@ docker run -d -p 4141:4141 \
   -e ATLANTIS_DEFAULT_TF_VERSION=<opentofu_version> \
   -e ATLANTIS_ATLANTIS_URL=<opentofu_url> \
   ghcr.io/runatlantis/atlantis:latest
+  
