@@ -22,11 +22,11 @@ environment  = {
       type = "api"
       readiness = "2s"
     },
-    app-3 = {
-      name = "test"
-      type = "db"
-      readiness = "2s"
-    }            
+    # app-3 = {
+    #   name = "test"
+    #   type = "db"
+    #   readiness = "2s"
+    # }            
   },
   stg = {
     app-1 = {
