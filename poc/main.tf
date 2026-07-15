@@ -11,3 +11,8 @@ resource "time_sleep" "wait" {
     terraform_data.test
   ]  
 }
+
+resource "local_file" "example" {
+  filename = "${path.module}/hello.txt"
+  content  = "Hello, World!"
+}
