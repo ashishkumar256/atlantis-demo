@@ -2,8 +2,8 @@ module "service" {
   # source              = "./modules"
   source              = "git::https://github.com/ashishkumar256/atlantis-demo.git//modules?ref=master"
   for_each            = local.info
+  deployment_name     = each.key
   namespace_name      = each.value.namespace_name
-  deployment_name     = each.value.deployment_name
   app_labels          = each.value.app_labels
   replica_count       = each.value.replica_count
   nginx_image         = each.value.nginx_image
