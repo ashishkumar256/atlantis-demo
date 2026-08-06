@@ -13,7 +13,7 @@ resource "kubernetes_namespace" "nginx" {
 resource "kubernetes_deployment" "nginx" {
   metadata {
     name      = var.deployment_name
-    namespace = kubernetes_namespace.nginx.metadata.name
+    namespace = kubernetes_namespace.nginx.metadata[0].name
     labels    = var.app_labels
   }
 
@@ -57,7 +57,7 @@ resource "kubernetes_deployment" "nginx" {
 resource "kubernetes_service" "nginx_service" {
   metadata {
     name      = "${lookup(var.app_labels, "app", "nginx")}-service"
-    namespace = kubernetes_namespace.nginx.metadata.name
+    namespace = kubernetes_namespace.nginx.metadata[0].name
   }
 
   spec {
@@ -80,7 +80,7 @@ resource "kubernetes_service" "nginx_service" {
 resource "kubernetes_horizontal_pod_autoscaler_v2" "nginx_hpa" {
   metadata {
     name      = "${lookup(var.app_labels, "app", "nginx")}-hpa"
-    namespace = kubernetes_namespace.nginx.metadata.name
+    namespace = kubernetes_namespace.nginx.metadata[0].name
     labels    = var.app_labels
   }
 
