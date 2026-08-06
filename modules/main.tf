@@ -91,7 +91,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "nginx_hpa" {
     scale_target_ref {
       api_version = "apps/v1"
       kind        = "Deployment"
-      name        = kubernetes_deployment.nginx.metadata.name
+      name        = kubernetes_deployment.nginx.metadata[0].name
     }
 
     # DYNAMIC BLOCK: Safely handles strings internally while processing user metrics
