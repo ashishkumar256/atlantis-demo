@@ -1,6 +1,6 @@
 module "service" {
   # source              = "./modules"
-  source              = "git::https://github.com/ashishkumar256/atlantis-demo.git//modules?ref    =master"
+  source              = "git::https://github.com/ashishkumar256/atlantis-demo.git//modules?ref=master"
   for_each            = local.info
   namespace_name      = each.value.namespace_name
   deployment_name     = each.value.deployment_name

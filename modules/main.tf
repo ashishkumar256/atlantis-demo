@@ -1,7 +1,7 @@
 # ----------------------------
 # NGINX Namespace
 # ----------------------------
-resource "kubernetes_namespace" "nginx_ns" {
+resource "kubernetes_namespace" "nginx" {
   metadata {
     name = var.namespace_name
   }
@@ -13,7 +13,7 @@ resource "kubernetes_namespace" "nginx_ns" {
 resource "kubernetes_deployment" "nginx" {
   metadata {
     name      = var.deployment_name
-    namespace = kubernetes_namespace.nginx_ns.metadata.name
+    namespace = kubernetes_namespace.nginx.metadata.name
     labels    = var.app_labels
   }
 
@@ -57,7 +57,7 @@ resource "kubernetes_deployment" "nginx" {
 resource "kubernetes_service" "nginx_service" {
   metadata {
     name      = "${lookup(var.app_labels, "app", "nginx")}-service"
-    namespace = kubernetes_namespace.nginx_ns.metadata.name
+    namespace = kubernetes_namespace.nginx.metadata.name
   }
 
   spec {
@@ -80,7 +80,7 @@ resource "kubernetes_service" "nginx_service" {
 resource "kubernetes_horizontal_pod_autoscaler_v2" "nginx_hpa" {
   metadata {
     name      = "${lookup(var.app_labels, "app", "nginx")}-hpa"
-    namespace = kubernetes_namespace.nginx_ns.metadata[0].name
+    namespace = kubernetes_namespace.nginx.metadata.name
     labels    = var.app_labels
   }
 
@@ -91,7 +91,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "nginx_hpa" {
     scale_target_ref {
       api_version = "apps/v1"
       kind        = "Deployment"
-      name        = kubernetes_deployment.nginx.metadata[0].name
+      name        = kubernetes_deployment.nginx.metadata.name
     }
 
     # DYNAMIC BLOCK: Safely handles strings internally while processing user metrics
